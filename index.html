@@ -1,34 +1,57 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>張智強個人介紹</title>
   <style>
+    :root {
+      --bg-color: #f5f5f5;
+      --text-color: #333;
+      --title-color: #2c3e50;
+      --subtitle-color: #7f8c8d;
+      --section-title-color: #34495e;
+      --link-color: #2980b9;
+      --link-hover-color: #e74c3c;
+      --card-bg: #fff;
+      --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    [data-theme="dark"] {
+      --bg-color: #2c3e50;
+      --text-color: #ecf0f1;
+      --title-color: #ecf0f1;
+      --subtitle-color: #bdc3c7;
+      --section-title-color: #ecf0f1;
+      --link-color: #3498db;
+      --link-hover-color: #e74c3c;
+      --card-bg: #34495e;
+      --shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
     body {
       font-family: 'Arial', sans-serif;
       text-align: center;
       margin: 0;
       padding: 20px;
-      background-color: #f5f5f5;
-      color: #333;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
     }
     h1 {
       font-size: 3rem;
       margin-bottom: 10px;
-      color: #2c3e50;
+      color: var(--title-color);
     }
     h2 {
       font-size: 1.5rem;
       margin-bottom: 30px;
-      color: #7f8c8d;
+      color: var(--subtitle-color);
     }
     h3 {
       font-size: 1.3rem;
       margin: 40px 0 20px;
-      color: #34495e;
-      border-bottom: 2px solid #2c3e50;
+      color: var(--section-title-color);
+      border-bottom: 2px solid var(--section-title-color);
       display: inline-block;
       padding-bottom: 5px;
     }
@@ -44,12 +67,12 @@
       font-size: 1.1rem;
     }
     a {
-      color: #2980b9;
+      color: var(--link-color);
       text-decoration: none;
       transition: color 0.3s ease;
     }
     a:hover {
-      color: #e74c3c;
+      color: var(--link-hover-color);
       text-decoration: underline;
     }
     .profile-pic {
@@ -58,7 +81,7 @@
       height: 200px;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow);
     }
     .profile-pic img {
       width: 100%;
@@ -69,12 +92,41 @@
       padding: 20px 0;
       margin-bottom: 30px;
     }
+    .beliefs li {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    .beliefs li:hover {
+      transform: translateY(-5px);
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: var(--card-bg);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background-color 0.3s;
+    }
+    .theme-toggle:hover {
+      background-color: var(--link-hover-color);
+      color: #fff;
+    }
     @media (max-width: 768px) {
       h1 { font-size: 2.5rem; }
       h2 { font-size: 1.2rem; }
       h3 { font-size: 1.1rem; }
       ul { max-width: 90%; }
+      li { font-size: 1rem; }
       .profile-pic { width: 150px; height: 150px; }
+      .theme-toggle { top: 10px; right: 10px; padding: 8px 15px; }
     }
     @media (max-width: 480px) {
       h1 { font-size: 2rem; }
@@ -84,11 +136,13 @@
   </style>
 </head>
 <body>
+  <button class="theme-toggle" onclick="toggleTheme()">切換深色模式</button>
+
   <h1>張智強</h1>
   <h2>學習者、開發者、社工</h2>
 
   <div class="profile-pic">
-    <img src="https://github.com/chihpao/pao/blob/main/Pao.jpg?raw=true" alt="張智強的大頭照">
+    <img src="https://raw.githubusercontent.com/chihpao/pao/main/Pao.jpg" alt="張智強的大頭照">
   </div>
 
   <div class="section">
@@ -101,11 +155,11 @@
       ，我的
         <a href="https://chihpao.notion.site/120daaa899518090a0e8ffef49017ccc" target="_blank">學習過程</a></li>
       <li>助理工程師，我目前於
-      <a href="https://www.iii.org.tw/zh-TW" target="_blank">資策會</a>
-      駐點，負責
-      <a href="https://zh.wikipedia.org/zh-tw/%E8%BB%9F%E9%AB%94%E9%A9%97%E8%AD%89%E5%8F%8A%E7%A2%BA%E8%AA%8D" target="_blank">IV&V</a>
-      專案，我的母公司為
-      <a href="https://www.essences.com.tw/" target="_blank">易勝資訊有限公司</a>
+        <a href="https://www.iii.org.tw/zh-TW" target="_blank">資策會</a>
+        駐點，負責
+        <a href="https://zh.wikipedia.org/zh-tw/%E8%BB%9F%E9%AB%94%E9%A9%97%E8%AD%89%E5%8F%8A%E7%A2%BA%E8%AA%8D" target="_blank">IV&V</a>
+        專案，我的母公司為
+        <a href="https://www.essences.com.tw/" target="_blank">易勝資訊有限公司</a>
       </li>
     </ul>
   </div>
@@ -132,7 +186,7 @@
 
   <div class="section">
     <h3>格言</h3>
-    <ul>
+    <ul class="beliefs">
       <li>「內容先於設計。缺乏內容的設計只是裝飾。」</li>
       <li>「你覺得沒用或是不美的東西，就別留在家裡。」</li>
       <li>「所謂有意識的生活，是在他人的決定影響我們之前，為自己做主的本事。」</li>
@@ -140,5 +194,15 @@
       <li>「最終，重要的不是你的人生活了多少歲月，而是你如何度過這些歲月。」</li>
     </ul>
   </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '切換深色模式' : '切換淺色模式';
+    }
+  </script>
 </body>
 </html>
