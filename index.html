@@ -119,21 +119,30 @@
       transform: translateY(-5px);
     }
     .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      background-color: var(--card-bg);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      transition: background-color 0.3s;
-      z-index: 1000;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     }
     .theme-toggle:hover {
       background-color: var(--link-hover-color);
       color: #fff;
+    }
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
     }
     
     /* 導航欄樣式 */
@@ -178,13 +187,6 @@
       z-index: 999;
     }
     
-    .nav-toggle:hover + .nav-menu,
-    .nav-menu:hover {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-    
     .nav-menu a {
       display: block;
       padding: 10px 20px;
@@ -194,10 +196,10 @@
       text-align: left;
     }
     
-    .nav-menu a:hover {
-      background-color: var(--nav-hover-bg);
-      color: var(--nav-hover-text);
-      text-decoration: none;
+    .nav-toggle:hover + .nav-menu, .nav-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
     }
     
     /* 聯絡區塊樣式 */
@@ -240,6 +242,85 @@
       color: var(--link-hover-color);
     }
     
+    /* 添加區塊背景差異 */
+    .section:nth-child(odd) {
+      background-color: transparent;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .section-with-bg {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px 20px;
+    margin: 30px auto;
+    max-width: 90%;
+    box-shadow: var(--shadow);
+    }
+    .skill-item {
+      background: var(--card-bg);
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .skill-item:hover {
+      transform: translateY(-3px);
+    }
+    /* 證照樣式 */
+    .cert-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .cert-icon {
+      margin-right: 15px;
+      font-size: 1.5rem;
+      color: var(--link-color);
+    }
+    
+    /* 導航菜單顯示/隱藏 */
+    .nav-menu.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      border: none;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      background-color: var(--link-hover-color);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    
     @media (max-width: 768px) {
       h1 { font-size: 2.5rem; }
       h2 { font-size: 1.2rem; }
@@ -247,17 +328,35 @@
       ul { max-width: 90%; }
       li { font-size: 1rem; }
       .profile-pic { width: 150px; height: 150px; }
-      .theme-toggle { top: 10px; right: 10px; padding: 8px 15px; }
+      .theme-toggle { 
+        top: 10px; 
+        right: 10px; 
+        padding: 8px;
+        width: 35px;
+        height: 35px;
+       }
       .nav-toggle { top: 60px; right: 10px; }
       .nav-menu { top: 110px; right: 10px; width: 130px; }
       .contact-info { flex-direction: column; gap: 10px; }
+      .section:nth-child(odd) {
+        max-width: 100%;
+        border-radius: 8px;
+      }
     }
     
     @media (max-width: 480px) {
       h1 { font-size: 2rem; }
       h2 { font-size: 1rem; }
       .profile-pic { width: 120px; height: 120px; }
-      .theme-toggle { font-size: 0.9rem; padding: 6px 12px; }
+      .theme-toggle {
+      padding: 6px;
+      width: 30px;
+      height: 30px;
+      }
+      .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      }
       .nav-toggle { width: 30px; height: 25px; padding: 8px; }
       .nav-menu { width: 120px; }
       .nav-menu a { padding: 8px 15px; font-size: 0.9rem; }
@@ -266,22 +365,27 @@
   </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()">切換深色模式</button>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="themeIcon">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
   
   <!-- 導航欄按鈕 -->
-  <div class="nav-toggle">
+  <div class="nav-toggle" onclick="toggleNav()">
     <span></span>
     <span></span>
     <span></span>
   </div>
   
   <!-- 導航選單 -->
-  <div class="nav-menu">
+  <div class="nav-menu" id="navMenu">
     <a href="#about">關於我</a>
-    <a href="#skills">技能與證照</a>
+    <a href="#skills">技能</a>
+    <a href="#certifications">證照</a>
     <a href="#experience">經歷</a>
     <a href="#quotes">格言</a>
-    <a href="#contact">聯絡我</a>
+    <a href="#contact">與我聯繫</a>
   </div>
 
   <h1>張智強</h1>
@@ -297,10 +401,10 @@
       <li>新竹長大，現居台北</li>
       <li>文化大學社福系畢業，台灣科技大學多媒體與行銷專班畢業</li>
       <li>我最近做的
-        <a href="https://funnywebsitegoodapi.vercel.app/" target="_blank">網站</a>
+      <a href="https://funnywebsitegoodapi.vercel.app/" target="_blank">網站</a>
       ，我的
         <a href="https://chihpao.notion.site/120daaa899518090a0e8ffef49017ccc" target="_blank">學習過程</a></li>
-      <li>助理工程師，我目前於
+      <li>現職助理工程師，目前於
         <a href="https://www.iii.org.tw/zh-TW" target="_blank">資策會</a>
         駐點，負責
         <a href="https://zh.wikipedia.org/zh-tw/%E8%BB%9F%E9%AB%94%E9%A9%97%E8%AD%89%E5%8F%8A%E7%A2%BA%E8%AA%8D" target="_blank">IV&V</a>
@@ -311,17 +415,47 @@
   </div>
 
   <div id="skills" class="section">
-    <h3>技能與證照</h3>
+    <h3>技能</h3>
     <ul>
-      <li><strong>技能：</strong></li>
-      <li><strong>前端開發：</strong> HTML、CSS、JavaScript、React、Vue、Tailwind CSS</li>
-      <li><strong>後端與 API：</strong> Node.js、Express.js、MongoDB、Firebase</li>
-      <li><strong>測試工具：</strong> Selenium、Postman</li>
-      <li><strong>證照：</strong></li>
-      <li>Certiport ITS Python 國際認證</li>
-      <li>Google Analytics 認證</li>
-      <li>台大資訊系統訓練班 HTML&CSS&React&OpenAI 認證</li>
-      <li>台大資訊系統訓練班 Node.js&MongoDB 認證</li>
+      <li class="skill-item">
+        前端開發： HTML、CSS、JavaScript、React、Tailwind CSS
+      </li>
+      <li class="skill-item">
+        後端與 API： Node.js、Express.js、MongoDB、Firebase
+      </li>
+      <li class="skill-item">
+        測試工具： Selenium、Postman
+      </li>
+    </ul>
+  </div>
+
+  <div id="certifications" class="section">
+    <h3>證照</h3>
+    <ul>
+      <li class="cert-item">
+        <div>
+          <strong>Certiport ITS Python 國際認證</strong>
+          <div><small>取得日期: 2022年</small></div>
+        </div>
+      </li>
+      <li class="cert-item">
+        <div>
+          <strong>Google Analytics 認證</strong>
+          <div><small>取得日期: 2022年</small></div>
+        </div>
+      </li>
+      <li class="cert-item">
+        <div>
+          <strong>台大資訊系統訓練班 HTML&CSS&React&OpenAI 認證</strong>
+          <div><small>取得日期: 2024年</small></div>
+        </div>
+      </li>
+      <li class="cert-item">
+        <div>
+          <strong>台大資訊系統訓練班 Node.js&MongoDB 認證</strong>
+          <div><small>取得日期: 2024年</small></div>
+        </div>
+      </li>
     </ul>
   </div>
 
@@ -346,9 +480,9 @@
     </ul>
   </div>
 
-  <!-- 聯絡我區塊 -->
+  <!-- 與我聯繫區塊 -->
   <div id="contact" class="section contact-section">
-    <h3 style="color: var(--contact-text); border-bottom-color: var(--contact-text);">聯絡我</h3>
+    <h3 style="color: var(--contact-text); border-bottom-color: var(--contact-text);">與我聯繫</h3>
     <div class="contact-info">
       <div class="contact-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
@@ -364,7 +498,13 @@
         <a href="mailto:chihpaoo@gmail.com">chihpaoo@gmail.com</a>
       </div>
     </div>
-  </div>
+  </div>    
+  <!-- 回到頂部按鈕 -->
+  <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTop()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
   <script>
     function toggleTheme() {
@@ -372,9 +512,51 @@
       const currentTheme = html.getAttribute('data-theme');
       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', newTheme);
-      document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '切換深色模式' : '切換淺色模式';
+          
+      // 更新圖標
+      const themeIcon = document.getElementById('themeIcon');
+      if (newTheme === 'dark') {
+        // 月亮圖標 (深色模式)
+        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+      } else {
+        // 太陽圖標 (淺色模式)
+        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+      }
     }
+    window.addEventListener('DOMContentLoaded', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const themeIcon = document.getElementById('themeIcon');
+      
+      if (currentTheme === 'dark') {
+        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+      } else {
+        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+      }
+    });
     
+    // 導航菜單點擊切換
+    function toggleNav() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+    }
+    // 添加回到頂部功能
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // 監聽滾動事件，顯示/隱藏回到頂部按鈕
+    window.addEventListener('scroll', function() {
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
     // 確保平滑滾動效果
     document.querySelectorAll('.nav-menu a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
@@ -385,6 +567,9 @@
           top: targetElement.offsetTop - 20,
           behavior: 'smooth'
         });
+        
+        // 點擊選項後關閉菜單
+        document.getElementById('navMenu').classList.remove('active');
       });
     });
   </script>
