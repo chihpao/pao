@@ -16,6 +16,10 @@
       --link-hover-color: #e74c3c;
       --card-bg: #fff;
       --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --nav-bg: rgba(255, 255, 255, 0.9);
+      --nav-text: #333;
+      --nav-hover-bg: #e74c3c;
+      --nav-hover-text: #fff;
     }
     [data-theme="dark"] {
       --bg-color: #2c3e50;
@@ -27,6 +31,10 @@
       --link-hover-color: #e74c3c;
       --card-bg: #34495e;
       --shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      --nav-bg: rgba(52, 73, 94, 0.9);
+      --nav-text: #ecf0f1;
+      --nav-hover-bg: #e74c3c;
+      --nav-hover-text: #fff;
     }
     body {
     font-family: 'Noto Sans TC', sans-serif;
@@ -37,6 +45,7 @@
     color: var(--text-color);
     line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
+    scroll-behavior: smooth;
     }
     h1 {
       font-size: 3rem;
@@ -92,6 +101,7 @@
     .section {
       padding: 20px 0;
       margin-bottom: 15px;
+      scroll-margin-top: 20px;
     }
     .beliefs li {
       background: var(--card-bg);
@@ -115,11 +125,77 @@
       cursor: pointer;
       box-shadow: var(--shadow);
       transition: background-color 0.3s;
+      z-index: 1000;
     }
     .theme-toggle:hover {
       background-color: var(--link-hover-color);
       color: #fff;
     }
+    
+    /* 導航欄樣式 */
+    .nav-toggle {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 35px;
+      height: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 1000;
+      background-color: var(--card-bg);
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: var(--shadow);
+    }
+    
+    .nav-toggle span {
+      width: 100%;
+      height: 4px;
+      background-color: var(--text-color);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-menu {
+      position: fixed;
+      top: 130px;
+      right: 20px;
+      background-color: var(--nav-bg);
+      border-radius: 5px;
+      box-shadow: var(--shadow);
+      padding: 10px 0;
+      width: 150px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .nav-toggle:hover + .nav-menu,
+    .nav-menu:hover {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .nav-menu a {
+      display: block;
+      padding: 10px 20px;
+      color: var(--nav-text);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    
+    .nav-menu a:hover {
+      background-color: var(--nav-hover-bg);
+      color: var(--nav-hover-text);
+      text-decoration: none;
+    }
+    
     @media (max-width: 768px) {
       h1 { font-size: 2.5rem; }
       h2 { font-size: 1.2rem; }
@@ -128,16 +204,38 @@
       li { font-size: 1rem; }
       .profile-pic { width: 150px; height: 150px; }
       .theme-toggle { top: 10px; right: 10px; padding: 8px 15px; }
+      .nav-toggle { top: 60px; right: 10px; }
+      .nav-menu { top: 110px; right: 10px; width: 130px; }
     }
+    
     @media (max-width: 480px) {
       h1 { font-size: 2rem; }
       h2 { font-size: 1rem; }
       .profile-pic { width: 120px; height: 120px; }
+      .theme-toggle { font-size: 0.9rem; padding: 6px 12px; }
+      .nav-toggle { width: 30px; height: 25px; padding: 8px; }
+      .nav-menu { width: 120px; }
+      .nav-menu a { padding: 8px 15px; font-size: 0.9rem; }
     }
   </style>
 </head>
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">切換深色模式</button>
+  
+  <!-- 導航欄按鈕 -->
+  <div class="nav-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  
+  <!-- 導航選單 -->
+  <div class="nav-menu">
+    <a href="#about">關於我</a>
+    <a href="#skills">技能與證照</a>
+    <a href="#experience">經歷</a>
+    <a href="#quotes">格言</a>
+  </div>
 
   <h1>張智強</h1>
   <h2>學習者、開發者、社工</h2>
@@ -146,7 +244,7 @@
     <img src="https://raw.githubusercontent.com/chihpao/pao/main/Pao.jpg" alt="張智強的大頭照">
   </div>
 
-  <div class="section">
+  <div id="about" class="section">
     <h3>關於我</h3>
     <ul>
       <li>新竹長大，現居台北</li>
@@ -165,7 +263,7 @@
     </ul>
   </div>
 
-  <div class="section">
+  <div id="skills" class="section">
     <h3>技能與證照</h3>
     <ul>
       <li><strong>技能：</strong></li>
@@ -180,7 +278,7 @@
     </ul>
   </div>
 
-  <div class="section">
+  <div id="experience" class="section">
     <h3>經歷</h3>
     <ul>
       <li><strong>助理工程師</strong> - 易勝資訊股份有限公司 (2023/5 – 現在)</li>
@@ -190,7 +288,7 @@
     </ul>
   </div>
 
-  <div class="section">
+  <div id="quotes" class="section">
     <h3>格言</h3>
     <ul class="beliefs">
       <li>「內容先於設計。缺乏內容的設計只是裝飾。」</li>
@@ -209,6 +307,19 @@
       html.setAttribute('data-theme', newTheme);
       document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '切換深色模式' : '切換淺色模式';
     }
+    
+    // 確保平滑滾動效果
+    document.querySelectorAll('.nav-menu a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        window.scrollTo({
+          top: targetElement.offsetTop - 20,
+          behavior: 'smooth'
+        });
+      });
+    });
   </script>
 </body>
 </html>
