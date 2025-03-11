@@ -62,6 +62,7 @@
       color: var(--subtitle-color);
     }
     h3 {
+      text-align: left;
       font-size: 1.3rem;
       margin: 20px 0 15px;
       color: var(--section-title-color);
@@ -77,13 +78,17 @@
       text-align: left;
     }
     li {
+      list-style-type: disc;
       margin: 15px 0;
+      margin-left: 20px 0;
       font-size: 1.1rem;
     }
     a {
       color: var(--link-color);
       text-decoration: none;
       transition: color 0.3s ease;
+      margin-right: 0;
+      display: inline-block;
     }
     a:hover {
       color: var(--link-hover-color);
@@ -108,10 +113,41 @@
       scroll-margin-top: 20px;
     }
     .beliefs li {
-    margin-bottom: 20px;
-    padding: 5px 0;
-    background: none;
-    box-shadow: none;
+      position: relative;
+      cursor: help; /* 當滑鼠移到引言上時，顯示問號游標 */
+    }
+    .beliefs li::after {
+      content: attr(data-author);
+      position: absolute;
+      top: 0;
+      right: -20px;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      text-align: left;
+      border-radius: 6px;
+      padding: 8px 12px;
+      width: max-content;
+      max-width: 250px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 10;
+      font-size: 0.9rem;
+      font-style: italic;
+      transform: translateX(10px);
+    }
+    .beliefs li:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+    .beliefs li::before {
+      display: none;
+    }
+    .beliefs li:hover::before {
+      opacity: 1;
+      visibility: visible;
     }
     .beliefs li:hover {
       transform: none;
@@ -360,6 +396,18 @@
         max-width: 100%;
         border-radius: 8px;
       }
+      .beliefs li::after {
+        position: static;
+        display: block;
+        margin-top: 5px;
+        transform: none;
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+      }
+      .beliefs li:hover::after {
+        transform: none;
+      }
     }
     
     @media (max-width: 480px) {
@@ -418,16 +466,9 @@
     <ul>
       <li>新竹長大，現居台北</li>
       <li>文化大學社福系畢業，台灣科技大學多媒體與行銷專班畢業</li>
-      <li>我最近做的全端互動
-      <a href="https://funnywebsitegoodapi.vercel.app/" target="_blank">網站</a>
-      ，整合React前端框架與Node.js後端，實現AI ChatBot、隨機梗圖 API 多功能平台，部署至Vercel的，我的
-        <a href="https://chihpao.notion.site/120daaa899518090a0e8ffef49017ccc" target="_blank">學習過程</a></li>
-      <li>現職助理工程師，目前於
-        <a href="https://www.iii.org.tw/zh-TW" target="_blank">資策會</a>
-        駐點，負責
-        <a href="https://zh.wikipedia.org/zh-tw/%E8%BB%9F%E9%AB%94%E9%A9%97%E8%AD%89%E5%8F%8A%E7%A2%BA%E8%AA%8D" target="_blank">IV&V</a>
-        專案，我的母公司為
-        <a href="https://www.essences.com.tw/" target="_blank">易勝資訊有限公司</a>
+      <li>我最近做的全端互動<a href="https://funnywebsitegoodapi.vercel.app/" target="_blank">網站</a>，整合React前端框架與Node.js後端，實現AI ChatBot、隨機梗圖API多功能平台，部署至Vercel雲端服務</li>
+      <li>我的<a href="https://chihpao.notion.site/120daaa899518090a0e8ffef49017ccc" target="_blank">學習過程</a>，分享在做網站採到的坑與經驗</li>
+      <li>現職助理工程師，目前於<a href="https://www.iii.org.tw/zh-TW" target="_blank">資策會</a>駐點，負責<a href="https://zh.wikipedia.org/zh-tw/%E8%BB%9F%E9%AB%94%E9%A9%97%E8%AD%89%E5%8F%8A%E7%A2%BA%E8%AA%8D" target="_blank">IV&V</a>專案，我的母公司為<a href="https://www.essences.com.tw/" target="_blank">易勝資訊有限公司</a>
       </li>
     </ul>
   </div>
@@ -453,29 +494,21 @@
   <div id="certifications" class="section">
     <h3>證照</h3>
     <ul>
-      <li class="cert-item">
-        <div>
+      <li>
           <strong>Certiport ITS Python 國際認證</strong>
-          <div><small>取得日期: 2022年</small></div>
-        </div>
+          <div><small>取得時間: 2022年</small></div>
       </li>
-      <li class="cert-item">
-        <div>
+      <li>
           <strong>Google Analytics 認證</strong>
-          <div><small>取得日期: 2022年</small></div>
-        </div>
+          <div><small>取得時間: 2022年</small></div>
       </li>
-      <li class="cert-item">
-        <div>
+      <li>
           <strong>台大資訊系統訓練班 HTML&CSS&React&OpenAI 認證</strong>
-          <div><small>取得日期: 2024年</small></div>
-        </div>
+          <div><small>取得時間: 2024年</small></div>
       </li>
-      <li class="cert-item">
-        <div>
+      <li>
           <strong>台大資訊系統訓練班 Node.js&MongoDB 認證</strong>
-          <div><small>取得日期: 2024年</small></div>
-        </div>
+          <div><small>取得時間: 2024年</small></div>
       </li>
     </ul>
   </div>
@@ -493,11 +526,11 @@
   <div id="quotes" class="section">
     <h3>格言</h3>
     <ul class="beliefs">
-      <li>「內容先於設計。缺乏內容的設計只是裝飾。」</li>
-      <li>「你覺得沒用或是不美的東西，就別留在家裡。」</li>
-      <li>「所謂有意識的生活，是在他人的決定影響我們之前，為自己做主的本事。」</li>
-      <li>「眼睛僅能看見光，耳朵僅能聽到聲音，但是傾聽內心可以賦予意義。」</li>
-      <li>「最終，重要的不是你的人生活了多少歲月，而是你如何度過這些歲月。」</li>
+      <li data-author="— Jeffrey Zeldman (網頁設計先驅)">「內容先於設計，缺乏內容的設計只是裝飾。」</li>
+      <li data-author="— 近藤麻理惠 (整理收納專家)">「你覺得沒用或是不美的東西，就別留在家裡。」</li>
+      <li data-author="— 大前研一 (管理學家)">「所謂有意識的生活，是在他人的決定影響我們之前，為自己做主的本事。」</li>
+      <li data-author="— 海倫·凱勒 (作家、社會運動家)">「眼睛僅能看見光，耳朵僅能聽到聲音，但是傾聽內心可以賦予意義。」</li>
+      <li data-author="— 亞伯拉罕·林肯 (美國第16任總統)">「最終，重要的不是你的人生活了多少歲月，而是你如何度過這些歲月。」</li>
     </ul>
   </div>
 
