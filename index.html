@@ -108,15 +108,13 @@
       scroll-margin-top: 20px;
     }
     .beliefs li {
-      background: var(--card-bg);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-      transition: transform 0.3s ease;
+    margin-bottom: 20px;
+    padding: 5px 0;
+    background: none;
+    box-shadow: none;
     }
     .beliefs li:hover {
-      transform: translateY(-5px);
+      transform: none;
     }
     .theme-toggle {
     position: fixed;
@@ -161,46 +159,70 @@
       border-radius: 5px;
       padding: 10px;
       box-shadow: var(--shadow);
+      transition: background-color 0.3s;
     }
-    
-    .nav-toggle span {
-      width: 100%;
-      height: 4px;
-      background-color: var(--text-color);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-    
-    .nav-menu {
-      position: fixed;
-      top: 130px;
-      right: 20px;
-      background-color: var(--nav-bg);
-      border-radius: 5px;
-      box-shadow: var(--shadow);
-      padding: 10px 0;
-      width: 150px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-10px);
-      transition: all 0.3s ease;
-      z-index: 999;
-    }
-    
-    .nav-menu a {
-      display: block;
-      padding: 10px 20px;
-      color: var(--nav-text);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      text-align: left;
-    }
-    
-    .nav-toggle:hover + .nav-menu, .nav-menu:hover {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    }
+  
+  /* 漢堡選單被點擊後變色 */
+  .nav-toggle.active {
+    background-color: var(--link-hover-color);
+  }
+  
+  .nav-toggle.active span {
+    background-color: #fff;
+  }
+  
+  .nav-toggle span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  /* 展開時漢堡選單動畫 */
+  .nav-toggle.active span:nth-child(1) {
+    transform: translateY(13px) rotate(45deg);
+  }
+  
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  
+  .nav-toggle.active span:nth-child(3) {
+    transform: translateY(-13px) rotate(-45deg);
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: 130px;
+    right: 20px;
+    background-color: var(--nav-bg);
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    padding: 10px 0;
+    width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 999;
+  }
+  
+  .nav-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--nav-text);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+  
+  .nav-menu a:hover {
+    background-color: var(--nav-hover-bg);
+    color: var(--nav-hover-text);
+    text-decoration: none;
+  }
     
     /* 聯絡區塊樣式 */
     .contact-section {
@@ -258,16 +280,12 @@
     box-shadow: var(--shadow);
     }
     .skill-item {
-      background: var(--card-bg);
-      padding: 12px 15px;
-      border-radius: 8px;
       margin-bottom: 15px;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease;
+      padding: 5px 0;
     }
 
     .skill-item:hover {
-      transform: translateY(-3px);
+      transform: none;
     }
     /* 證照樣式 */
     .cert-item {
@@ -536,9 +554,11 @@
     
     // 導航菜單點擊切換
     function toggleNav() {
-      const navMenu = document.getElementById('navMenu');
-      navMenu.classList.toggle('active');
-    }
+    const navMenu = document.getElementById('navMenu');
+    const navToggle = document.querySelector('.nav-toggle');
+    navMenu.classList.toggle('active');
+    navToggle.classList.toggle('active');
+  }
     // 添加回到頂部功能
     function scrollToTop() {
       window.scrollTo({
@@ -559,18 +579,18 @@
 
     // 確保平滑滾動效果
     document.querySelectorAll('.nav-menu a').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        window.scrollTo({
-          top: targetElement.offsetTop - 20,
-          behavior: 'smooth'
-        });
-        
-        // 點擊選項後關閉菜單
-        document.getElementById('navMenu').classList.remove('active');
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      window.scrollTo({
+        top: targetElement.offsetTop - 20,
+        behavior: 'smooth'
       });
+        
+        document.getElementById('navMenu').classList.remove('active');
+        document.querySelector('.nav-toggle').classList.remove('active');
+    });
     });
   </script>
 </body>
